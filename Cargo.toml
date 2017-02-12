@@ -1,0 +1,6 @@
+[package]
+name = "ashell"
+version = "0.1.0"
+authors = ["Hibariya <hibariya@gmail.com>"]
+
+[dependencies]
