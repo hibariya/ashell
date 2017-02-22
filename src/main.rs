@@ -11,7 +11,7 @@ use std::process::{Command,Stdio};
 struct Shell;
 impl PtyHandler for Shell {
     fn input(&mut self, input: &[u8]) {
-        playse("se-chalk.wav");
+        playse("se-type.wav");
     }
 
     fn output(&mut self, output: &[u8]) {
@@ -19,11 +19,11 @@ impl PtyHandler for Shell {
     }
 
     fn resize(&mut self, winsize: &winsize::Winsize) {
-        playse("se-awa.wav");
+        playse("se-type.wav");
     }
 
     fn shutdown(&mut self) {
-        playse("se-chon.wav");
+        playse("se-end.wav");
     }
 }
 
@@ -74,21 +74,13 @@ fn setup_sounds() {
 
     fs::create_dir_all(path).unwrap();
 
-    let se_awa = include_bytes!("../sounds/se-awa.wav");
-    let mut se_awa_f = fs::File::create(path.join("se-awa.wav")).unwrap();
-    let _ = se_awa_f.write_all(se_awa);
-
-    let se_awa = include_bytes!("../sounds/se-chalk.wav");
-    let mut se_awa_f = fs::File::create(path.join("se-chalk.wav")).unwrap();
-    let _ = se_awa_f.write_all(se_awa);
-
-    let se_awa = include_bytes!("../sounds/se-chon.wav");
-    let mut se_awa_f = fs::File::create(path.join("se-chon.wav")).unwrap();
-    let _ = se_awa_f.write_all(se_awa);
-
-    let se_awa = include_bytes!("../sounds/se-kabe.wav");
-    let mut se_awa_f = fs::File::create(path.join("se-kabe.wav")).unwrap();
-    let _ = se_awa_f.write_all(se_awa);
+    let _ = fs::File::create(path.join("se-chdir.wav")).unwrap().write_all(include_bytes!("../sounds/se-chdir.wav"));
+    let _ = fs::File::create(path.join("se-end.wav")).unwrap().write_all(include_bytes!("../sounds/se-end.wav"));
+    let _ = fs::File::create(path.join("se-failed.wav")).unwrap().write_all(include_bytes!("../sounds/se-failed.wav"));
+    let _ = fs::File::create(path.join("se-preexec.wav")).unwrap().write_all(include_bytes!("../sounds/se-preexec.wav"));
+    let _ = fs::File::create(path.join("se-start.wav")).unwrap().write_all(include_bytes!("../sounds/se-start.wav"));
+    let _ = fs::File::create(path.join("se-succeeded.wav")).unwrap().write_all(include_bytes!("../sounds/se-succeeded.wav"));
+    let _ = fs::File::create(path.join("se-type.wav")).unwrap().write_all(include_bytes!("../sounds/se-type.wav"));
 }
 
 fn main() {

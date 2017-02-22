@@ -18,30 +18,27 @@ function __ashell_on_after_command --on-event fish_postexec
     __ashell_pwd_changed
   end
 
-  if begin; test -n $argv; and test $__ashell_last_status -ne 0; end
-    __ashell_command_failed $argv[1] $__ashell_last_status
+  if test -n $argv
+    if test $__ashell_last_status -eq 0
+      __ashell_command_succeeded $argv[1]
+    else
+      __ashell_command_failed $argv[1] $__ashell_last_status
+    end
   end
 end
 
 function __ashell_pwd_changed --on-variable PWD
-    __ashell_playse "se-chon.wav"
+  __ashell_playse "se-chdir.wav"
 end
 
 function __ashell_command_entered
-  for _ in (string split ' ' $argv[1])
-    __ashell_playse "se-awa.wav"
-    sleep 0.05
-  end
+  __ashell_playse "se-preexec.wav"
+end
+
+function __ashell_command_succeeded
+  __ashell_playse "se-succeeded.wav"
 end
 
 function __ashell_command_failed
-  if test $argv[2] -eq 127
-    __ashell_playse "se-kabe.wav"
-    return
-  end
-
-  for _ in (string split ' ' $argv[1])
-    __ashell_playse "se-kabe.wav"
-    sleep 0.05
-  end
+  __ashell_playse "se-failed.wav"
 end

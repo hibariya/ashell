@@ -10,6 +10,10 @@ A shell wrapper which sounds on a number of shell events Edit
 $ cargo run
 ```
 
+## Sound Effects
+
+http://osabisi.sakura.ne.jp/m2/material3.html
+
 ## License
 
 Copyright (c) 2017 Hibariya

@@ -25,34 +25,26 @@ __ashell_precmd() {
     __ashell_pwd_changed
   fi
 
-  if [[ $__ashell_last_status -ne 0 ]]
+  if [[ $__ashell_last_status -eq 0 ]]
   then
+    __ashell_command_succeeded $__ashell_lastcmd
+  else
     __ashell_command_failed $__ashell_lastcmd $__ashell_last_status
   fi
 }
 
 __ashell_command_entered() {
-  for _ in $(echo $1 | tr ' ' "\n")
-  do
-    __ashell_playse "se-awa.wav"
-    sleep 0.05
-  done
+  __ashell_playse "se-preexec.wav"
 }
 
 __ashell_pwd_changed() {
-    __ashell_playse "se-chon.wav"
+  __ashell_playse "se-chdir.wav"
 }
 
 __ashell_command_failed() {
-  if [[ $2 -eq 127 ]]
-  then
-    __ashell_playse "se-kabe.wav"
-    return
-  fi
+  __ashell_playse "se-failed.wav"
+}
 
-  for _ in $(echo $1 | tr ' ' "\n")
-  do
-    __ashell_playse "se-kabe.wav"
-    sleep 0.05
-  done
+__ashell_command_succeeded() {
+  __ashell_playse "se-succeeded.wav"
 }
