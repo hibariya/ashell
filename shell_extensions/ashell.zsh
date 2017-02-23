@@ -8,7 +8,7 @@ __ashell_command_entered() {}
 __ashell_pwd_changed() {}
 __ashell_command_failed() {}
 
-if which aplay
+if (which aplay >/dev/null 2>&1)
 then
   __ashell_player=aplay
 else

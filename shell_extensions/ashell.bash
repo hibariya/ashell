@@ -6,7 +6,7 @@ precmd_functions+=(__ashell_precmd)
 __ashell_lastpwd=$PWD
 __ashell_lastcmd=''
 
-if which aplay
+if (which aplay >/dev/null 2>&1)
 then
   __ashell_player=aplay
 else
