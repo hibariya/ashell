@@ -6,8 +6,15 @@ precmd_functions+=(__ashell_precmd)
 __ashell_lastpwd=$PWD
 __ashell_lastcmd=''
 
+if which aplay
+then
+  __ashell_player=aplay
+else
+  __ashell_player=afplay
+fi
+
 __ashell_playse() {
-  (aplay "/tmp/ashell/sounds/${1}" >/dev/null 2>&1 &)
+  ($__ashell_player "/tmp/ashell/sounds/${1}" >/dev/null 2>&1 &)
 }
 
 __ashell_preexec() {

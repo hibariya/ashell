@@ -8,8 +8,15 @@ __ashell_command_entered() {}
 __ashell_pwd_changed() {}
 __ashell_command_failed() {}
 
+if which aplay
+then
+  __ashell_player=aplay
+else
+  __ashell_player=afplay
+fi
+
 __ashell_playse() {
-  (aplay "/tmp/ashell/sounds/${1}" >/dev/null 2>&1 &)
+  ($__ashell_player "/tmp/ashell/sounds/${1}" >/dev/null 2>&1 &)
 }
 
 __ashell_preexec() {

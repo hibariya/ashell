@@ -27,9 +27,19 @@ impl PtyHandler for Shell {
     }
 }
 
+
+#[cfg(target_os="linux")]
+const PLAYER: &'static str = "aplay";
+
+#[cfg(target_os="macos")]
+const PLAYER: &'static str = "afplay";
+
+#[cfg(all(not(target_os="linux"), not(target_os="macos")))]
+const PLAYER: &'static str = "aplay";
+
 fn playse<S: AsRef<Path>>(file: S) {
     let path = Path::new("/tmp/ashell/sounds");
-    let _ = Command::new("aplay")
+    let _ = Command::new(PLAYER)
                      .arg(path.join(file).to_str().unwrap())
                      .stdout(Stdio::null())
                      .stderr(Stdio::null())

@@ -1,7 +1,13 @@
 set __ashell_lastdir $PWD
 
+if test (which aplay)
+  set __ashell_player 'aplay'
+else
+  set __ashell_player 'afplay'
+end
+
 function __ashell_playse
-  aplay "/tmp/ashell/sounds/$argv[1]" >/dev/null ^&1 &
+  eval "$__ashell_player /tmp/ashell/sounds/$argv[1] >/dev/null ^&1 &"
 end
 
 function __ashell_on_before_command --on-event fish_preexec
